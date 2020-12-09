@@ -14,6 +14,7 @@
 <li>hide processes by pid></li>
 <h4>TODO:</h4>
   <li>adit the tool hanuleing by commands</li>
+  <li>made the keylogger.h more readable by adding module.h and fops.h</li>
   <li>add anti gdb fetures</li>
   <li>add option to give root privileges to regular user</li>
  <h5>Tested on linux 5.4, ubuntu 20</h5>
