@@ -1,5 +1,5 @@
-<h1>linux klm rootkit<h1>
-  <p>this a part of my graduate project for the קxcellence program 
+<h1>linux klm rootkit</h1>
+  <p>this a part of my graduate project for the excellence program 
   for teenagers called "Academy and industry" provieded by the
   teenagers academic unit of the Weizmann Institute of Science
 </p>
