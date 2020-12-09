@@ -17,5 +17,5 @@
   <li>add anti gdb fetures</li>
   <li>add option to give root privileges to regular user</li>
  <h5>Tested on linux 5.4, ubuntu 20</h5>
-   <h6>note: this is an education project! do not use it for illige things</h6>
+   <h6>note: this is an education project! do not use it for illegal  things</h6>
 </html>
