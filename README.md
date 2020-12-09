@@ -11,7 +11,7 @@
 <li> remove the module from /sys/modules directory </li>
 <li> hide tcp connections by port (only ipv4, ill add ipv6 later)</li>
 <li>hide files by name</li>
-<li>hide processes by pid></li>
+<li>hide processes by pid</li>
 <h4>TODO:</h4>
   <li>adit the tool hanuleing by commands</li>
   <li>made the keylogger.h more readable by adding module.h and fops.h</li>
