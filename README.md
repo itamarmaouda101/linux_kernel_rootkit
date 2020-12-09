@@ -5,24 +5,13 @@
   teenagers academic unit of the Weizmann Institute of Science
 </p>
 <h2>what is it doing?</h2>
-<li> save keystrokes in spesific file</li> 
-<li> hide from lsmod</li> 
+<li> save keystrokes in spesific file (keylogger)</li> 
+<li> hide from lsmod </li> 
 <li> unhide from lsmod </li>
 <li> cover the tracks by cleaning kernel segments</li>
 <li> remove the module from /sys/modules directory </li>
+<li> hide tcp connections by port (only ipv4, ill add ipv6 later)</li>
+<li>hide files by name</li>
+<li>hide processes by pid></li>
+
 </html>
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-// method 1
-<img
-src=“images/SubPronouns.jpg”
-raw=true
-alt=“Subject Pronouns”
-style=“margin-right: 10px;”
-/>
-
-// method 2
-![Test Image 3](/3DTest.png)
-![Test Image 4](https://github.com/tograh/testrepository/3DTest.png 112)
-
-// last method
-<img width=“964” alt=“java 8 and prio java 8  array review example” src=“https://github.com/jaimehernan95/arrayReview-java/blob/master/images/%20arrayExample.png 23”>
