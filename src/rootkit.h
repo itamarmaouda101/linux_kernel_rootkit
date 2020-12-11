@@ -3,6 +3,8 @@
 #include "keylogger.h"
 #include "proc.h"
 #include "file.h"
+#include "fops.h"
+#include "module.h"
 #include "network.h"
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("8xbit");

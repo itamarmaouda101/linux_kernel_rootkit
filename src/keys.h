@@ -124,4 +124,4 @@ static char *keycode[][2] = {
   {"PAUSE", "PAUSE"},
 };
 
-#endif /* !KEYS_H_ */
+#endif 

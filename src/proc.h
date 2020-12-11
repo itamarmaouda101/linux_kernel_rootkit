@@ -1,5 +1,5 @@
 #ifndef _PROC_H_
-#define _PROC_H
+#define _PROC_H_
 #include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/module.h>

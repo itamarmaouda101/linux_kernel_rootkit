@@ -1,3 +1,5 @@
+#ifndef _FILE_H_
+#define _FILE_H_
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -170,3 +172,4 @@ void unload(void)
 
 
 
+#endif
