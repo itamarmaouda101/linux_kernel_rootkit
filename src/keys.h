@@ -1,5 +1,5 @@
 #ifndef KEYS_H_
-# define KEYS_H_
+# define KEYS_H
 
 static char *keycode[][2] = {
   {"\0", "\0"},

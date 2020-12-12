@@ -11,4 +11,6 @@ MODULE_AUTHOR("8xbit");
 MODULE_VERSION("1.0");
 MODULE_DESCRIPTION("Just a simple keylogger");
 MODULE_SUPPORTED_DEVICE("Not machine dependent");
+static int __init start_rootkit(void);
+static void __exit remove_rootkit(void);
 #endif
