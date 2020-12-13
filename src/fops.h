@@ -18,7 +18,7 @@
 #include <linux/sysfs.h>
 #define BUFF_SIZE (PAGE_SIZE << 2)
 static struct dentry *file;
-static struct dentry *file1;
+//static struct dentry *file1;
 static struct dentry *subdir;
 static char msg_Ptr[BUFF_SIZE];
 static size_t buf_pos;

