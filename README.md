@@ -19,9 +19,10 @@
   <li>run: sudo insmod rootkit.ko</li>
 </ol>
 <h4>TODO:</h4>
-  <li>adit the tool hanuleing by commands(now its just run by defulat settings)</li>
+  <li>edit the tool hanuleing by commands(now its just run by defulat settings)</li>
   <li>hide packet using hooks of packet_rcv</li>
   <li>add anti gdb fetures</li>
+    <li>made it more readable by .h and .c</li>
   <li>add option to give root privileges to regular user</li>
  <h5>Tested on linux 5.4, ubuntu 20</h5>
    <h2>note: this is an education project! do not use it for illegal  things</h2>
