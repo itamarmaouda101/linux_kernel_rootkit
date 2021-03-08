@@ -1,4 +1,9 @@
-#include "module.h"
+#include "./headers/module.h"
+static struct file_operations fops_hide =
+{
+    .owner = THIS_MODULE,
+    .open = dev_open_fops_for_hide
+};
 static int hide_driver_entery(void)
 {
     ret = alloc_chrdev_region(&dev_num1, 0, 1, "hide");

