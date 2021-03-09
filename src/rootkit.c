@@ -13,7 +13,7 @@ fetures such as:
 
 static int __init start_rootkit(void)
 {
-    int ret=0;
+    ret=0;
     extern struct dentry *subdir;
     subdir = debugfs_create_dir("rootkit", NULL);
     /*if (!file)

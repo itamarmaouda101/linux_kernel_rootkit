@@ -1,0 +1,1 @@
+cmd_/home/itamar/test/2/linux_kernel_rootkit/src/modules.order := {   echo /home/itamar/test/2/linux_kernel_rootkit/src/rootkit.ko; :; } | awk '!x[$$0]++' - > /home/itamar/test/2/linux_kernel_rootkit/src/modules.order

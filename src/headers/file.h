@@ -18,7 +18,10 @@
 #include <linux/sched.h>
 #include <linux/security.h>
 #include <linux/types.h>
+//#include "fops.h"
 #define HIDE_ME "secret.txt"
+int ret;
+int err;
 
 typedef asmlinkage unsigned long (*sys_call)(const struct pt_regs*);
 unsigned long* sys_call_table;

