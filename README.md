@@ -1,6 +1,6 @@
 <html>
-<h1>linux LKM rootkit</h1>
-  <p>this a part of my graduate project for the excellence program 
+<h1>Karthus LKM rootkit</h1>
+  <p>Karthus is a part of my graduate project for the excellence program 
   for teenagers called "Academy and industry" provieded by the
   teenagers academic unit of the Weizmann Institute of Science
 </p>
